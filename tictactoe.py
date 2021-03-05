@@ -1,4 +1,9 @@
+
 import copy
+import random
+
+import matplotlib.pyplot as plt
+
 class Board: 
     def __init__(self):
         self.board = self.create_board()
@@ -68,10 +73,11 @@ class Board:
             board = self.board
 
         # If there are empty squares in the board, the game is incomplete.
-        is_complete = None
+        is_complete = True
+        #is_complete = None
         for x in range(len(board)):
             for y in range(len(board)):
-                if board[x][y] == 0:
+                if board[x][y] == " ":
                     is_complete = False
 
         # Each possible board position is appended to the array.
@@ -80,23 +86,27 @@ class Board:
             possible_board.append(rows)
         for columns in self.get_column(board):
             possible_board.append(columns)
-        for diagonals in self.get_diagonal(board):
+        for diagonal in self.get_diagonal(board):
             possible_board.append(diagonal)
 
+        #take 3 squares, then 
+
         # Count the number of empty squares, X's, and O's on the board.
-        num_empty, num_X, num_O = 0
-        for square in possible_board:
-            if square == 0:
-                num_empty += 1
-            elif square == 'X':
-                num_X += 1
-            elif square == 'O':
-                num_O += 1
-        # If the number of X's or O's in a row, column, or diagonal is 3, the game is complete.
-        if (num_X == 3) or (num_O == 3):
-            is_complete = True
+        for line_of_squares in possible_board: 
+            num_empty, num_X, num_O = 0, 0, 0
+            for square in line_of_squares:
+                if square == " ":
+                    num_empty += 1
+                elif square == 'X':
+                    num_X += 1
+                elif square == 'O':
+                    num_O += 1
+                # If the number of X's or O's in a row, column, or diagonal is 3, the game is complete.
+                if (num_X == 3) or (num_O == 3):
+                    is_complete = True
 
         return is_complete
+
 
     def assign_winner(self, board = 0): # Checks who won the game.
         if board == 0:
@@ -109,24 +119,26 @@ class Board:
                 possible_board.append(rows)
             for columns in self.get_column(board):
                 possible_board.append(columns)
-            for diagonals in self.get_diagonal(board):
+            for diagonal in self.get_diagonal(board):
                 possible_board.append(diagonal)    
 
             # Count the number of empty squares, X's, and O's on the board.
-            num_empty, num_X, num_O = 0
-            for square in possible_board:
-                if square == 0:
-                    num_empty += 1
-                elif square == 'X':
-                    num_X += 1
-                elif square == 'O':
-                    num_O += 1
+            for line_of_squares in possible_board: 
+                num_empty, num_X, num_O = 0,0,0
+                for square in line_of_squares:
+                    if square == " ":
+                        num_empty += 1
+                    elif square == 'X':
+                        num_X += 1
+                    elif square == 'O':
+                        num_O += 1
+
+                if num_X == 3:  
+                    return 1
+                elif num_O == 3:
+                    return 2
             
             # The winner is declared if the number of X's or O's in a row, column, or diagonal is 3.
-            if num_X == 3:  
-                return 'X'
-            elif num_O == 3:
-                return 'O'
 
             return 0
         else:
@@ -137,42 +149,29 @@ class Board:
             board = self.board
 
         print('\n')
-        print(board[0][0] + '|' + board[0][1] + '|' + board[0][2])
+        print(board[0][0], '|', board[0][1], '|', board[0][2])
         print("-----")
-        print(board[1][0] + '|' + board[1][1] + '|' + board[1][2])
+        print(board[1][0], '|', board[1][1], '|', board[1][2])
         print("-----")
-        print(board[2][0] + '|' + board[2][1] + '|' + board[2][2])
+        print(board[2][0], '|', board[2][1], '|', board[2][2])
         print('\n')
 
     def getFeatures(self, board = 0):
         if board == 0:
             board = self.board
-
-        #x1 = number of X's in corner pieces
-        #x2 = number of O's in corner pieces
-        #x3 = X in center; 1 if X, 0 if empty, -1 of O
-        #x4 = O in center; 1 if O, 0 if empty, -1 if X
-        #x5 = number of rows that have two X's
-        #x6 = number of rows that have two O's
-        #x7 = number of rows that have three X's
-        #x8 = number of rows that have three O's
-        #x5 = number of columns that have two X's
-        #x6 = number of columns that have two O's
-        #x7 = number of columns that have three X's
-        #x8 = number of columns that have three O's
-        
-        x1 = 0      
-        x2 = 0
-        x3 = 0
-        x4 = 0
-        x5 = 0
-        x6 = 0
-        x7 = 0
-        x8 = 0
-        x9 = 0
-        x10 = 0
-        x11 = 0
-        x12 = 0
+             
+        x1 = 0  #number of X's in corner pieces
+        x2 = 0  #number of O's in corner pieces
+        x3 = 0  #X in center; 1 if X, 0 if empty, -1 of O
+        x4 = 0  #O in center; 1 if O, 0 if empty, -1 if X
+        x5 = 0  #number of rows that have two X's
+        x6 = 0  #number of rows that have two O's
+        x7 = 0  #number of rows that have three X's
+        x8 = 0  #number of rows that have three O's
+        x9 = 0  #number of columns that have two X's
+        x10 = 0 #number of columns that have two O's
+        x11 = 0 #number of columns that have three X's
+        x12 = 0 #number of columns that have three O's
 
         #for x1 & x2
         for x in range(0,3,2):
@@ -240,10 +239,11 @@ class Board:
         return successors
 
 class Player:
-    def __init__(self,board,symbol):
+    def __init__(self,board,weights,symbol):
         self.board=board
         self.symbol=symbol
-        self.weights=[0,0,0,0,0,0,0,0,0,0,0,0]
+        self.weights= weights
+        self.lr= .1
 
     def setLearningRate(self,lr):
         self.lr=lr
@@ -251,15 +251,46 @@ class Player:
     def setBoard(self,board):
         self.board=board
 
-    def setWeights(weights):
+    def getBoard(self):
+        return self.board
+
+    def setWeights(self, weights):
         self.weights=weights
 
+    def getWeights(self):
+        return self.weights
+
     def evaluateBoard(self,board):
-        x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12=self.board.getFeatures(board)
-        w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12=self.weights
+        x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 = self.board.getFeatures(board)
+        w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
 
         return w1*x1+w2*x2+w3*x3+w4*x4+w5*x5+w6*x6+w7*x7+w8*x8+w9*x9+w10*x10+w11*x11+w12*x12
 
+    # updating weights using LMS rule
+    def LMS(self,playthrough,trainingData):
+        for i in range(0,len(playthrough)):
+            w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
+            vHat = self.evaluateBoard(playthrough[i])
+            x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 = trainingData[i][0]
+            vTrain = trainingData[i][1]            
+
+            w1 = w1 + self.lr*(vTrain - vHat)*x1
+            w2 = w2 + self.lr*(vTrain - vHat)*x2
+            w3 = w3 + self.lr*(vTrain - vHat)*x3
+            w4 = w4 + self.lr*(vTrain - vHat)*x4
+            w5 = w5 + self.lr*(vTrain - vHat)*x5
+            w6 = w6 + self.lr*(vTrain - vHat)*x6
+            w7 = w7 + self.lr*(vTrain - vHat)*x7
+            w8 = w8 + self.lr*(vTrain - vHat)*x8
+            w9 = w9 + self.lr*(vTrain - vHat)*x9
+            w10 = w10 + self.lr*(vTrain - vHat)*x10
+            w11 = w11 + self.lr*(vTrain - vHat)*x11
+            w12 = w12 + self.lr*(vTrain - vHat)*x12
+
+
+            self.weights = w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12
+
+    #think we have to fix this
     def chooseMove(self):
         successors=self.board.getSuccessors(self.symbol)
         bestMove=successors[0]
@@ -267,51 +298,173 @@ class Player:
             if(self.evaluateBoard(successor)>self.evaluateBoard(bestMove)):
                 bestMove=successor
                 
-
         self.board.setBoard(bestMove)
 
-    
+    #this function just looks at successor 0,
+    def chooseRandom(self):
+        successors=self.board.getSuccessors(self.symbol)
+        bestMove=successors[0]
+            
+        randomBoard = successors[random.randint(0,len(successors)-1)]
+        self.board.setBoard(randomBoard)
+
+class System:
+    def __init__(self,board,weights,symbol):
+        self.board = board
+        self.weights = weights
+        self.symbol = symbol
+        self.checker = Board()
+
+    def evaluateBoard(self,board):
+        x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 = self.board.getFeatures(board)
+        w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
+
+        return w1*x1+w2*x2+w3*x3+w4*x4+w5*x5+w6*x6+w7*x7+w8*x8+w9*x9+w10*x10+w11*x11+w12*x12
+
+    def setWeights(self, weights):
+        self.weights=weights
+
+    def setSymbol(self, symbol):
+        self.weights = weights
+
+    def getTrainingData(self,playthrough):
+        trainingData = []
+
+        for i in range(0,len(playthrough)):
+            if(self.checker.check_completion(playthrough[i])):
+                if(self.checker.assign_winner(playthrough[i]) == self.symbol):
+                    trainingData.append([self.checker.getFeatures(playthrough[i]), 100])
+                elif(self.checker.assign_winner(playthrough[i]) == 0):
+                    trainingData.append([self.checker.getFeatures(playthrough[i]), 0])
+                else:
+                    trainingData.append([self.checker.getFeatures(playthrough[i]), -100])
+            else:
+                if i+2 >= len(playthrough):
+                    if(self.checker.assign_winner(playthrough[len(playthrough)-1]) == 0):
+                        trainingData.append([self.checker.getFeatures(playthrough[i]), 0])
+                    else:
+                        trainingData.append([self.checker.getFeatures(playthrough[i]), -100])
+                else:
+                    trainingData.append([self.checker.getFeatures(playthrough[i]), self.evaluateBoard(playthrough[i+2])])
+
+        return trainingData
 
 
-
-
-
-
-
-#class Opponent:
-
-b=Board()
+b = Board()
 b.create_board()
 b.print_board()
 
-#To test Board
-# b.set_x(0,0)
-# b.set_x(1,0)
-# b.set_y(0,1)
-# b.set_x(0,2)
-# b.set_y(1,1)
-# b.set_y(2,1)
-# b.print_board()
-# print(b.getFeatures())
-# print(b.getSuccessors('X'))
+weights1 = (.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3)
+weights2 = (.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3)
 
-#To Test Player
-# Player1=Player(b,'X')
-# Player1.chooseMove()
-# Player1=Player(b,"O")
-# Player1.chooseMove()
-# b.print_board()
-# Player1=Player(b,"X")
-# Player1.chooseMove()
-# Player1=Player(b,"O")
-# Player1.chooseMove()
-# b.print_board()
-# Player1=Player(b,"X")
-# Player1.chooseMove()
-# Player1=Player(b,"O")
-# Player1.chooseMove()
-# b.print_board()
+learner = Player(b, weights1, 'X')
+opponent = Player(b, weights2, 'O')
 
+opponent.setLearningRate(0)
+
+system1 = System(b, weights1, 'X')
+system2 = System(b, weights2, 'O')
+
+X_wins = 0
+O_wins = 0
+tie = 0
+
+for i in range(0,10000):
+    b = Board()
+    learner.setBoard(b)
+    opponent.setBoard(b)
+
+    while(not b.check_completion()):
+        #player1.chooseRandom()
+        learner.chooseMove()
+        b.print_board()
+        if b.check_completion():
+            #b.print_board()
+            break
+        #player2.chooseMove()
+        opponent.chooseRandom()
+        b.print_board()
+
+
+    winner = b.assign_winner()
+            
+    if(winner == 1):
+        print ("X wins")
+        X_wins += 1
+    elif(winner == 2):
+        print ("O wins")
+        O_wins += 1
+    elif(winner == 0):
+        print ("The game is a tie.")
+        tie += 1
+
+    system1.setWeights(learner.getWeights())
+    system2.setWeights(opponent.getWeights())
+
+    learner.LMS(b.getPlaythrough(),system1.getTrainingData(b.getPlaythrough()))
+    opponent.LMS(b.getPlaythrough(),system2.getTrainingData(b.getPlaythrough()))
+
+    print ("X won " + str(X_wins) + " games.")
+    print ("O won " + str(O_wins) + " games.")
+    print ("There were " + str(tie) + " ties.")
+
+    '''
+    while True:
+        b = Board()
+        learner.setBoard(b)
+        opponent.setBoard(b)
+        
+        while(not board.check_completion()):
+            #board.printBoard()
+            #xval = input("Enter xcoordinate: ")
+            #yval = input("Enter ycoordinate: ")
+            #board.setX(xval,yval)
+
+            #player1.chooseRandom()
+            learner.chooseMove()
+            if board.check_completion():
+                break
+    '''
+
+    print("DONEEEEE")
+    print ("L", learner.getWeights())
+    print ("O", opponent.getWeights())
+
+#class Plotting:
+
+'''
+
+    #To test Board
+    b.set_x(0,0)
+    b.set_x(1,0)
+    b.set_y(0,1)
+    b.set_x(0,2)
+    b.set_y(1,1)
+    b.set_y(2,1)
+    b.print_board()
+    #print(b.getFeatures())
+    #print(b.getSuccessors('X'))
+
+    #To Test Player
+    Player1=Player(b,'X')
+    Player1.chooseMove()
+    Player1=Player(b,"O")
+    Player1.chooseMove()
+    b.print_board()
+
+    Player1=Player(b,"X")
+    Player1.chooseMove()
+    Player1=Player(b,"O")
+    Player1.chooseMove()
+    b.print_board()
+
+    Player1=Player(b,"X")
+    Player1.chooseMove()
+    Player1=Player(b,"O")
+    Player1.chooseMove()
+    b.print_board()
+
+'''
 
 
 
