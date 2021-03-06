@@ -406,12 +406,6 @@ for i in range(0,10000):
 
 
 
-   # print("DONEEEEE")
-   # print ("L", learner.getWeights())
-   # print ("O", opponent.getWeights())
-
-
-
 
 
 
