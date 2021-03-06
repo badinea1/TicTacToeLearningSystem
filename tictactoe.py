@@ -1,7 +1,6 @@
 import copy
 import random
 
-import matplotlib.pyplot as plt
 
 class Board: 
     def __init__(self):
@@ -407,67 +406,9 @@ for i in range(0,10000):
     print ("O won " + str(O_wins) + " games.")
     print ("There were " + str(tie) + " ties.")
 
-    '''
-    while True:
-        b = Board()
-        learner.setBoard(b)
-        opponent.setBoard(b)
-        
-        while(not board.check_completion()):
-            #board.printBoard()
-            #xval = input("Enter xcoordinate: ")
-            #yval = input("Enter ycoordinate: ")
-            #board.setX(xval,yval)
-
-            #player1.chooseRandom()
-            learner.chooseMove()
-            if board.check_completion():
-                break
-    '''
 
     print("DONEEEEE")
     print ("L", learner.getWeights())
     print ("O", opponent.getWeights())
-
-#class Plotting:
-
-'''
-
-    #To test Board
-    b.set_x(0,0)
-    b.set_x(1,0)
-    b.set_y(0,1)
-    b.set_x(0,2)
-    b.set_y(1,1)
-    b.set_y(2,1)
-    b.print_board()
-    #print(b.getFeatures())
-    #print(b.getSuccessors('X'))
-
-    #To Test Player
-    Player1=Player(b,'X')
-    Player1.chooseMove()
-    Player1=Player(b,"O")
-    Player1.chooseMove()
-    b.print_board()
-
-    Player1=Player(b,"X")
-    Player1.chooseMove()
-    Player1=Player(b,"O")
-    Player1.chooseMove()
-    b.print_board()
-
-    Player1=Player(b,"X")
-    Player1.chooseMove()
-    Player1=Player(b,"O")
-    Player1.chooseMove()
-    b.print_board()
-
-'''
-
-
-
-
-
 
 
