@@ -1,13 +1,18 @@
 A writeup addressing each of the following (if there is nothing for a category then make an explicit remark ("Nothing" or "None"):
 
 (1) anything positive you enjoyed or learned from this assignment
-	- 
+	We enjoyed implementing what was learned in class and we developed a deeper understanding of the LMS learning algorithm as well as how to teach 
+	a machine to learn a game like tic tac toe
 (2) anything negative you didn't like about this assignment
 	- 
 (3) any parts of this assignment you found easy
-	- 
+	- none
 (4) any parts of this assignment you found challenging or couldn't get working correctly
-	- 
+	- At some point our ratio of games won and games lost was very close (excluding the games that were tied),for example,
+	we had X winning 3017 games and O winning 2104, we realized thatthe issue was with the LMS code as we forgot to implement a w0 weight, 
+	once that was added the ratio changed signifcantly with X won around 5017 games while O won 2606 games. Therefore, we found that this signifcantly 
+	helped our learning algorithm. 
+	
 (5) how your team functioned
 	- 
 	what each team member contributed
