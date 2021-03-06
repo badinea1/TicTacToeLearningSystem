@@ -20,7 +20,8 @@ The repository includes four main deliverables:
 ## Build Instructions for the HPC
 
 ```
-module add python && git clone https://github.com/badinea1/TicTacToeLearningSystem.git && cd TicTacToeLearningSystem
+module add python
+git clone https://github.com/badinea1/TicTacToeLearningSystem.git && cd TicTacToeLearningSystem
 python tictactoe.py
 
 ```
