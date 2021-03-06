@@ -1,4 +1,3 @@
-
 import copy
 import random
 
@@ -16,7 +15,7 @@ class Board:
         return board
 
     def setBoard(self,board):
-        self.board=board 
+        self.board = board 
         self.playthrough.append(copy.deepcopy(self.board))
 
     def getPlaythrough(self):
@@ -74,7 +73,6 @@ class Board:
 
         # If there are empty squares in the board, the game is incomplete.
         is_complete = True
-        #is_complete = None
         for x in range(len(board)):
             for y in range(len(board)):
                 if board[x][y] == " ":
@@ -176,9 +174,9 @@ class Board:
         #for x1 & x2
         for x in range(0,3,2):
             for y in range(0,3,2):
-                if board[x][y]=='X':
+                if board[x][y] == 'X':
                     x1 += 1
-                elif board[x][y]=='O':
+                elif board[x][y] == 'O':
                     x2 += 1
 
         #for x3 & x4
@@ -216,13 +214,13 @@ class Board:
                 if board[y][x] == 'O':
                     num_O += 1
             if(num_X==2 and num_O==0):
-                x9 +=1
+                x9 += 1
             if(num_X==3):
-                x11 +=1
+                x11 += 1
             if(num_O==2 and num_X==0):
-                x10 +=1
+                x10 += 1
             if(num_O==3):
-                x12 +=1
+                x12 += 1
 
         return x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12
     
@@ -232,48 +230,49 @@ class Board:
         successors = []
         for x in range(len(board)):
             for y in range(len(board)):
-                if board[x][y]==" ":
-                    successor = copy.deepcopy(board)
-                    successor[x][y]=symbol
+                if self.board[x][y]== " ":
+                    successor = copy.deepcopy(self.board)
+                    successor[x][y] = symbol
                     successors.append(successor)
         return successors
 
 class Player:
     def __init__(self,board,weights,symbol):
-        self.board=board
-        self.symbol=symbol
-        self.weights= weights
-        self.lr= .1
+        self.board = board
+        self.symbol = symbol
+        self.weights = weights
+        self.lr = .1
 
     def setLearningRate(self,lr):
-        self.lr=lr
+        self.lr = lr
 
     def setBoard(self,board):
-        self.board=board
+        self.board = board
 
     def getBoard(self):
         return self.board
 
     def setWeights(self, weights):
-        self.weights=weights
+        self.weights = weights
 
     def getWeights(self):
         return self.weights
 
     def evaluateBoard(self,board):
         x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 = self.board.getFeatures(board)
-        w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
+        w0,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
 
-        return w1*x1+w2*x2+w3*x3+w4*x4+w5*x5+w6*x6+w7*x7+w8*x8+w9*x9+w10*x10+w11*x11+w12*x12
+        return w0 + w1*x1 + w2*x2 + w3*x3 + w4*x4 + w5*x5 + w6*x6 + w7*x7 + w8*x8 + w9*x9 + w10*x10 + w11*x11 + w12*x12
 
     # updating weights using LMS rule
     def LMS(self,playthrough,trainingData):
         for i in range(0,len(playthrough)):
-            w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
+            w0,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
             vHat = self.evaluateBoard(playthrough[i])
             x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 = trainingData[i][0]
             vTrain = trainingData[i][1]            
 
+            w0 = w0 + self.lr*(vTrain - vHat)
             w1 = w1 + self.lr*(vTrain - vHat)*x1
             w2 = w2 + self.lr*(vTrain - vHat)*x2
             w3 = w3 + self.lr*(vTrain - vHat)*x3
@@ -288,22 +287,24 @@ class Player:
             w12 = w12 + self.lr*(vTrain - vHat)*x12
 
 
-            self.weights = w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12
+            self.weights = w0,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12
 
     #think we have to fix this
     def chooseMove(self):
-        successors=self.board.getSuccessors(self.symbol)
-        bestMove=successors[0]
+        successors = self.board.getSuccessors(self.symbol)
+        bestMove = successors[0]
+        bestOption = self.evaluateBoard(bestMove)
         for successor in successors:
-            if(self.evaluateBoard(successor)>self.evaluateBoard(bestMove)):
-                bestMove=successor
+            if(self.evaluateBoard(successor)>bestOption):
+                bestOption = self.evaluateBoard(successor)
+                bestMove = successor
                 
         self.board.setBoard(bestMove)
 
     #this function just looks at successor 0,
     def chooseRandom(self):
-        successors=self.board.getSuccessors(self.symbol)
-        bestMove=successors[0]
+        successors = self.board.getSuccessors(self.symbol)
+        bestMove = successors[0]
             
         randomBoard = successors[random.randint(0,len(successors)-1)]
         self.board.setBoard(randomBoard)
@@ -317,12 +318,12 @@ class System:
 
     def evaluateBoard(self,board):
         x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 = self.board.getFeatures(board)
-        w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
+        w0,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
 
-        return w1*x1+w2*x2+w3*x3+w4*x4+w5*x5+w6*x6+w7*x7+w8*x8+w9*x9+w10*x10+w11*x11+w12*x12
+        return w0 + w1*x1 + w2*x2 + w3*x3 + w4*x4 + w5*x5 + w6*x6 + w7*x7 + w8*x8 + w9*x9 + w10*x10 + w11*x11 + w12*x12
 
     def setWeights(self, weights):
-        self.weights=weights
+        self.weights = weights
 
     def setSymbol(self, symbol):
         self.weights = weights
@@ -354,8 +355,8 @@ b = Board()
 b.create_board()
 b.print_board()
 
-weights1 = (.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3)
-weights2 = (.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3)
+weights1 = (.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3)
+weights2 = (.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3)
 
 learner = Player(b, weights1, 'X')
 opponent = Player(b, weights2, 'O')
@@ -375,13 +376,11 @@ for i in range(0,10000):
     opponent.setBoard(b)
 
     while(not b.check_completion()):
-        #player1.chooseRandom()
         learner.chooseMove()
         b.print_board()
         if b.check_completion():
             #b.print_board()
             break
-        #player2.chooseMove()
         opponent.chooseRandom()
         b.print_board()
 
