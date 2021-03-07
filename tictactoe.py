@@ -3,6 +3,8 @@ import random
 
 import matplotlib.pyplot as plt
 
+import math
+
 class Board: 
     def __init__(self):
         self.board = self.create_board() #to generate a board 
@@ -226,7 +228,7 @@ class Board:
         if board == 0:
             board = self.board
         successors = []
-        for x in range(len(board)): 
+        for x in range(len(board)):  
             for y in range(len(board)):
                 if self.board[x][y]== " ":
                     successor = copy.deepcopy(self.board)
@@ -288,18 +290,18 @@ class Player:
 
             self.weights = w0,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12
 
-    #this function chooses move based on evaluating the board and the successors 
+    #this function chooses move based on evaluating the board and the successors to choose the best possible board position
     def chooseMove(self):
         successors = self.board.getSuccessors(self.symbol)
         bestMove = successors[0]
         bestOption = self.evaluateBoard(bestMove)
-        for successor in successors:   #for all successors 
-            if(self.evaluateBoard(successor)>bestOption): #if successors  
+        for successor in successors:    
+            if(self.evaluateBoard(successor)>bestOption): 
                 bestOption = self.evaluateBoard(successor)  
                 bestMove = successor 
                 
         self.board.setBoard(bestMove) 
-  #this function just looks at successor 0,
+  #this function just looks at successor 0, and chooses a move randomly (for the opponent)
     def chooseRandom(self):
         successors = self.board.getSuccessors(self.symbol)
         bestMove = successors[0]
@@ -307,7 +309,7 @@ class Player:
         randomBoard = successors[random.randint(0,len(successors)-1)]
         self.board.setBoard(randomBoard)
 
-class System:  
+class System:  # opponents class 
     def __init__(self,board,weights,symbol):
         self.board = board
         self.weights = weights
@@ -329,14 +331,14 @@ class System:
     def getTrainingData(self,playthrough):
         trainingData = []
 
-        for i in range(0,len(playthrough)):
-            if(self.checker.check_completion(playthrough[i])):
-                if(self.checker.assign_winner(playthrough[i]) == self.symbol):
-                    trainingData.append([self.checker.getFeatures(playthrough[i]), 100])
-                elif(self.checker.assign_winner(playthrough[i]) == 0):
-                    trainingData.append([self.checker.getFeatures(playthrough[i]), 0])
+        for i in range(0,len(playthrough)):  # for i in range of our playthrough 
+            if(self.checker.check_completion(playthrough[i])):   #if game is complete 
+                if(self.checker.assign_winner(playthrough[i]) == self.symbol):   # if a winner is assigned 
+                    trainingData.append([self.checker.getFeatures(playthrough[i]), 100]) #append the training data that it chose good board positions and won
+                elif(self.checker.assign_winner(playthrough[i]) == 0):   #if it is a tie 
+                    trainingData.append([self.checker.getFeatures(playthrough[i]), 0])  #append the training data 
                 else:
-                    trainingData.append([self.checker.getFeatures(playthrough[i]), -100])
+                    trainingData.append([self.checker.getFeatures(playthrough[i]), -100])  #append the training data because it lost 
             else:
                 if i+2 >= len(playthrough):
                     if(self.checker.assign_winner(playthrough[len(playthrough)-1]) == 0):
@@ -357,54 +359,57 @@ weights1 = (.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3)
 weights2 = (.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3,.3) 
 
 learner = Player(b, weights1, 'X') # our learner starts with the same weights, and plays X 
-opponent = Player(b, weights2, 'O') #our opponenet uses the constant weights throughout adn plays O 
+opponent = Player(b, weights2, 'O') #our opponenet uses the constant weights throughout and plays O 
 
-opponent.setLearningRate(0)
-system1 = System(b, weights1, 'X')
+opponent.setLearningRate(0)  #setting the learning rate for opponent 
+system1 = System(b, weights1, 'X')  
 system2 = System(b, weights2, 'O')
 #intializations
 X_wins = 0 
 O_wins = 0
 tie = 0
 #start playing 
-for i in range(0,10000):
+for i in range(0,10): #the upper bound of this play dictates the number of games played
     b = Board()
     learner.setBoard(b)
     opponent.setBoard(b)
 
-    while(not b.check_completion()):
+    while(not b.check_completion()): # while the game is not completed learner must pick a board move, and so does the opponenet. Print the board state. 
         learner.chooseMove()
         b.print_board()
         if b.check_completion():
-            #b.print_board()
+            #b.print_board()      #if game is complete break
             break
         opponent.chooseRandom()
         b.print_board()
 
 
-    winner = b.assign_winner()
+    winner = b.assign_winner()  # assign a winner
             
     if(winner == 1): #if winner is 1 the X won and update counter 
         print ("X wins")
-        X_wins += 1
+        X_wins += 1 
+        numwin=[X_wins]
+        #print("ARRAY" + str(numwin))
     elif(winner == 2): #if winner is 2 then O won and update counter
         print ("O wins")
         O_wins += 1
     elif(winner == 0): #if neither won then the game is a tie and update counter
         print ("The game is a tie.")
         tie += 1
-
     system1.setWeights(learner.getWeights())
     system2.setWeights(opponent.getWeights())
 
-    learner.LMS(b.getPlaythrough(),system1.getTrainingData(b.getPlaythrough()))
+    learner.LMS(b.getPlaythrough(),system1.getTrainingData(b.getPlaythrough()))       
     opponent.LMS(b.getPlaythrough(),system2.getTrainingData(b.getPlaythrough()))
-
-    print ("X won " + str(X_wins) + " games.")
+    
+    #print statements
+    print ("X won " + str(X_wins) + " games.") 
     print ("O won " + str(O_wins) + " games.")
     print ("There were " + str(tie) + " ties.")
-
-
+plt.figure()
+x= 10,000
+plt.plot(x,[numwin])
 
 
 
