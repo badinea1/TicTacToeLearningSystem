@@ -1,2 +1,17 @@
 A document explaining the board features you chose and the intuition behind choosing them. Also provide and 
 explain the intuition for the fixed evaluation function you created for the second copy of your program ("the opponent" program).
+
+
+**Intuition behind Board Features**
+1. Feature 1: This feature counts the number of X's in the corner positions corner pieces
+2. Feature 2: Number of O's in corner pieces
+3. Feature 3: X in center; 1 if X, 0 if empty, -1 of O
+4. Feature 4: O in center; 1 if O, 0 if empty, -1 if X
+5. Feature 5: number of rows that have two X's
+6. Feature 6: number of rows that have two O's
+7. Feature 7: number of rows that have three X's
+8. Feature 8: number of rows that have three O's
+9. Feature 9: number of columns that have two X's
+10. Feature 10: number of columns that have two O's
+11. Feature 11: number of columns that have three X's
+12. Feature 12: number of columns that have three O's
