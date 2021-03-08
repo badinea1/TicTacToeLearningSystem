@@ -28,9 +28,10 @@ python tictactoe.py
 ```
 
 
-2. Method 2: From local directory
+2. Method 2: 
 On OnDemand, go to your File Home Directory and upload "tictactoe.py". Then, in the HPC terminal, enter: 
-   ``` 
+
+``` 
    python tictactoe.py
 ```
 
