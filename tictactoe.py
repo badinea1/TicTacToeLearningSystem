@@ -234,8 +234,10 @@ class Board:
         
     def getTrainingData(self,playthrough,player): #To extract training data from games played
         trainingData = []
-
+        
+        # iterate through the playthrough
         for i in range(0,len(playthrough)):
+            # for completed board states
             if(self.check_completion(playthrough[i])):
                 if(self.assign_winner(playthrough[i]) == player.symbol):
                     trainingData.append([self.getFeatures(playthrough[i]), 100]) #if player is the winner of the game, assign each board state in this playthrough a value of 100
@@ -244,13 +246,14 @@ class Board:
                 else:
                     trainingData.append([self.getFeatures(playthrough[i]), -100]) #if the opponent is the winner of the game, assign each board state in this playthrough a value of -100
             else:
-                if i+2 >= len(playthrough):
-                    if(self.assign_winner(playthrough[len(playthrough)-1]) == 0):
+                # for board states that are not completed
+                if i+2 >= len(playthrough): 
+                    if(self.assign_winner(playthrough[len(playthrough)-1]) == 0): # looks at the last game in the playthrough
                         trainingData.append([self.getFeatures(playthrough[i]), 0])
                     else:
-                        trainingData.append([self.getFeatures(playthrough[i]), -100])
+                        trainingData.append([self.getFeatures(playthrough[i]), -100]) # adjusts features 
                 else:
-                    trainingData.append([self.getFeatures(playthrough[i]), player.evaluateBoard(playthrough[i+2])])
+                    trainingData.append([self.getFeatures(playthrough[i]), player.evaluateBoard(playthrough[i+2])]) # chooses two states ahead of the current board state
 
         return trainingData
 
