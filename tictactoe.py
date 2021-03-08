@@ -21,14 +21,6 @@ class Board:
 
     def getPlaythrough(self):
         return self.playthrough
-    
-   # def set_x(self, x, y):
-        #self.board[x][y] = 'X'
-       # self.playthrough.append(copy.deepcopy(self.board))
-    
-    #def set_y(self, x, y):
-        #self.board[x][y] = 'O'
-       # self.playthrough.append(copy.deepcopy(self.board))
 
     def get_row(self, board = 0): # Returns each row of the board.
         if board == 0: #default board value
