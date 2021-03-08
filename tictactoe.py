@@ -5,7 +5,7 @@ class Board:
         self.board = self.create_board()    #to generate a board 
         self.playthrough = [copy.deepcopy(self.board)] #to keep track of our game history
 
-    def create_board(self): # Creates an array, with empty squares.
+    def create_board(self): # Creates an empty board.
         board = [ [" "," "," "],
                   [" "," "," "],
                   [" "," "," "] ]
@@ -18,21 +18,21 @@ class Board:
     def getPlaythrough(self):
         return self.playthrough
     
-    def set_x(self, x, y):
-        self.board[x][y] = 'X'
-        self.playthrough.append(copy.deepcopy(self.board))
+   # def set_x(self, x, y):
+        #self.board[x][y] = 'X'
+       # self.playthrough.append(copy.deepcopy(self.board))
     
-    def set_y(self, x, y):
-        self.board[x][y] = 'O'
-        self.playthrough.append(copy.deepcopy(self.board))
+    #def set_y(self, x, y):
+        #self.board[x][y] = 'O'
+       # self.playthrough.append(copy.deepcopy(self.board))
 
     def get_row(self, board = 0): # Returns each row of the board.
-        if board == 0:
+        if board == 0: #default board value
             board = self.board
         return board
 
     def get_column(self, board = 0): # Returns each column of the board.
-        if board == 0:
+        if board == 0: #default board value
             board = self.board
 
         possible_columns = []
@@ -45,17 +45,17 @@ class Board:
         return possible_columns
 
     def get_diagonal(self, board = 0): # Returns the diagonals of the board.
-        if board == 0:
+        if board == 0: #default board value
             board = self.board
 
         possible_diagonals = []
 
-        L_to_R = []
+        L_to_R = [] #Left to Right diagonal
         L_to_R.append(board[0][0])
         L_to_R.append(board[1][1])
         L_to_R.append(board[2][2])
 
-        R_to_L = []
+        R_to_L = [] #Right to Left diagonal
         R_to_L.append(board[2][0])
         R_to_L.append(board[1][1])
         R_to_L.append(board[0][2])
@@ -65,7 +65,7 @@ class Board:
         return possible_diagonals
 
     def check_completion(self, board = 0): # Checks if the game is over.
-        if board == 0:
+        if board == 0: #default board value
             board = self.board
 
         # If there are empty squares in the board, the game may be incomplete.
@@ -81,7 +81,7 @@ class Board:
             possible_board.append(rows)         #append the rows 
         for columns in self.get_column(board):  #append the columns 
             possible_board.append(columns)
-        for diagonal in self.get_diagonal(board):    #append the diagonals
+        for diagonal in self.get_diagonal(board): #append the diagonals
             possible_board.append(diagonal)
 
         #Take 3 squares, then count the number of empty squares, X's, and O's among them.
@@ -113,7 +113,7 @@ class Board:
             for columns in self.get_column(board):
                 possible_board.append(columns)  # append columns
             for diagonal in self.get_diagonal(board):
-                possible_board.append(diagonal)  # append diagnols  
+                possible_board.append(diagonal)  # append diagonals  
 
             #Take 3 squares, then count the number of empty squares, X's, and O's among them.
             for line_of_squares in possible_board: 
@@ -137,8 +137,8 @@ class Board:
         else:
             print("Game is incomplete. No winner determined.")
 
-    def print_board(self, board = 0): # The board is printed.
-        if board == 0:
+    def print_board(self, board = 0): # prints the board
+        if board == 0: #default board value
             board = self.board
 
         print('\n')
@@ -211,11 +211,11 @@ class Board:
                     num_O += 1
             if(num_X==2 and num_O==0): #if there are two X's and no O's, then update respective feature
                 x9 += 1
-            if(num_X==3): #if there are three X's in a row, then update respective feature
+            if(num_X==3): #if there are three X's in a column, then update respective feature
                 x11 += 1
-            if(num_O==2 and num_X==0): #if there are two O's and no X's in a row, then update respective feature
+            if(num_O==2 and num_X==0): #if there are two O's and no X's in a column, then update respective feature
                 x10 += 1
-            if(num_O==3): #if there are three O's in a row, then update respective feature
+            if(num_O==3): #if there are three O's in a column, then update respective feature
                 x12 += 1
 
         return x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12
@@ -286,7 +286,7 @@ class Player:
         return w0 + w1*x1 + w2*x2 + w3*x3 + w4*x4 + w5*x5 + w6*x6 + w7*x7 + w8*x8 + w9*x9 + w10*x10 + w11*x11 + w12*x12
 
     # updating weights using LMS rule
-    def LMS(self,playthrough,trainingData): #Originally, we realized that we didn't include w0 and our ratio of games won and games lost was very close. Once, we added w0 the ratio was more of what we expected. 
+    def LMS(self,playthrough,trainingData): 
         for i in range(0,len(playthrough)):
             w0,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 = self.weights
             vHat = self.evaluateBoard(playthrough[i])
@@ -316,10 +316,10 @@ class Player:
         successors = self.board.getSuccessors(self.symbol)
         bestMove = successors[0]
         bestOption = self.evaluateBoard(bestMove)
-        for successor in successors:
+        for successor in successors: #for each successor in the list of successors, evaluate the successor and compare it with the current bestOption
             if(self.evaluateBoard(successor)>bestOption):
-                bestOption = self.evaluateBoard(successor)
-                bestMove = successor
+                bestOption = self.evaluateBoard(successor) #update bestOption
+                bestMove = successor #update bestMove
                 
         self.board.setBoard(bestMove)
     
@@ -347,16 +347,16 @@ for i in range(0,10000): #The upper bound of this range dictates the number of g
     learner.setBoard(b)
     opponent.setBoard(b)
 
-    while(not b.check_completion()):
+    while(not b.check_completion()): #while the game is incomplete, the learner and opponent chooses a move
         learner.chooseMove()
         b.print_board()
-        if b.check_completion():
+        if b.check_completion(): #if game is complete, exit loop
             break
         opponent.chooseMove()
-        b.print_board()
+        b.print_board()  #to print board
 
 
-    winner = b.assign_winner()
+    winner = b.assign_winner() #assign winner
             
     if(winner == 1): #if X wins, update counter
         print ("X wins")
@@ -369,11 +369,9 @@ for i in range(0,10000): #The upper bound of this range dictates the number of g
         tie += 1
 
 
-    learner.LMS(b.getPlaythrough(),b.getTrainingData(b.getPlaythrough(),learner))
+    learner.LMS(b.getPlaythrough(),b.getTrainingData(b.getPlaythrough(),learner)) # calls LMS function to update learner's weights
 
-    print ("X won " + str(X_wins) + " games.")
+    print ("X won " + str(X_wins) + " games.") #prints final results
     print ("O won " + str(O_wins) + " games.")
     print ("There were " + str(tie) + " ties.")
 
-    print ("L", learner.getWeights())
-    print ("O", opponent.getWeights())
