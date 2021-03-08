@@ -38,4 +38,6 @@
 	the team would come together to evaluate the code.
 	 
 (6) Any other remarks you want to make
-	- None
+	- Note that after around 1600 games, the number of games O wins no longer increases. We think this happens because X's weights stabilize and has learned 
+	how to effectively beat the opponent because O acts predictably. At this point the performance of the evaluation function of the learner 
+	surpasses the opponent's evaluation function (with fixed weights and learning rate). Hence, all the games at this point, look identical.
