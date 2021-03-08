@@ -11,10 +11,10 @@
 	- None
 (4) Any parts of this assignment you found challenging or couldn't get working correctly
 	- Adjusting the weights was at first challenging, though we were able to overcome this. At some point, our ratio of games won and games lost was 
-	very close. For example, at some point we had X winning 3017 games and O winning 2104 and we tied 4879 times, and we realized 
-	that the issue was with the LMS code, as we forgot to implement a w0 weight and edited our chooseMove function to evaluate the best move based on 
-	the successor. Once that was added, the ratio changed significantly as X won around 9688 games while O won 302 games, with 10 games tied.
-	Therefore, we found that this signifcantly helped our learning algorithm.
+	very close. For example, at some point we had X winning 3017 games and O winning 2104 and we tied 4879 times. We realized that the issue was with 
+	the LMS code, as we forgot to implement a w0 weight and edited our chooseMove function to evaluate the best move based on the successor. Once that 
+	was added, the ratio changed significantly as X won around 9688 games while O won 302 games, with 10 games tied. Therefore, we found that this 
+	signifcantly helped our learning algorithm.
 	
 (5) How the team functioned:
 	- The team functioned by communicating through GroupMe and meeting several times a week. Regular Zoom meetings were held to brainstorm and design
@@ -38,6 +38,6 @@
 	the team would come together to evaluate the code.
 	 
 (6) Any other remarks you want to make
-	- Note that after around 1600 games, the number of games O wins no longer increases. We think this happens because X's weights stabilize and has learned 
-	how to effectively beat the opponent because O acts predictably. At this point the performance of the evaluation function of the learner 
-	surpasses the opponent's evaluation function (with fixed weights and learning rate). Hence, all the games at this point, look identical.
+	- Note that after around 1600 games, the number of games O wins no longer increases. We think this happens because X's weights stabilize and X has learned 
+	how to effectively beat the opponent because O acts predictably. At this point, the performance of the evaluation function of the learner 
+	surpasses the opponent's evaluation function (with fixed weights and learning rate). Hence, all the games at this point look identical.
