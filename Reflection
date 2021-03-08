@@ -22,7 +22,6 @@ A writeup addressing each of the following (if there is nothing for a category t
 	- Adeena:
 	- Suada: Created functions to generate the board, debugged the code and analyzed for errors, helped with plotting.
 	- Lana: Analyzed the code for errors, debugged the code and added documentation. Additionally worked on the plots and the write-up. 
-	how the team communicated with each other
 
 	How the team communicated with each other:
 	- GroupMe was used for immediate communication and to decide when Zoom meetings would be held.
@@ -30,8 +29,8 @@ A writeup addressing each of the following (if there is nothing for a category t
 	
 	How team software development & design was accomplished
 	- During the first Zoom meeting, we were all prepared to brainstorm and discuss which weights we would want to use. In addition, we assigned parts of
-	the design we wanted each group member to work on. As for software development, a group member would finish their task and commit it to GitHub, and then
-	the team would come together to evaluate the code.
+	the design we wanted each group member to work on. As for software development, a group member would finish their task and commit it to GitHub and notify
+	other team members it was completed through GroupMe. Then, the team would come together to evaluate the code.
 	 
 (6) Any other remarks you want to make
 	- None
