@@ -18,7 +18,8 @@ A writeup addressing each of the following (if there is nothing for a category t
 	the code and to review the progress. We split the work among us evenly.
 
 	What each team member contributed:
-	- Amulya:
+	- Amulya: Implemented the LMS Weight Update Rule and the function to extract training data from games played, designed gameplay 
+		between learner and opponent, debugged the code, worked on the write-up.
 	- Adeena:
 	- Suada: Created functions to generate the board, debugged the code and analyzed for errors, helped with plotting.
 	- Lana: Analyzed the code for errors, debugged the code and added documentation. Additionally worked on the plots and the write-up. 
@@ -29,8 +30,8 @@ A writeup addressing each of the following (if there is nothing for a category t
 	
 	How team software development & design was accomplished
 	- During the first Zoom meeting, we were all prepared to brainstorm and discuss which weights we would want to use. In addition, we assigned parts of
-	the design we wanted each group member to work on. As for software development, a group member would finish their task and commit it to GitHub and notify
-	other team members it was completed through GroupMe. Then, the team would come together to evaluate the code.
+	the design we wanted each group member to work on. As for software development, a group member would finish their task and commit it to GitHub, and then
+	the team would come together to evaluate the code.
 	 
 (6) Any other remarks you want to make
 	- None
