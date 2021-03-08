@@ -1,7 +1,7 @@
-##Intuition##
+Intuition
 To choose these board features, we played a couple of games against a computer.
 
-**Intuition behind Board Features**
+Intuition behind Board Features:
 1. Feature 1: This feature counts the number of X's in the corner positions of the board
 2. Feature 2: This feature counts the number of O's in the corner positions of the board
 
@@ -23,7 +23,8 @@ These features are important because they highlight winning opportunities for a 
 7. Feature 7: This feature counts the number of rows in the board that contain three X's 
 8. Feature 8: This feature counts the number of rows in the board that contain three O's 
 
-Intuition behind Features 7 & 8: These features determine the winner of the board. If we encountered a row that contained either three X’s or three O’s, then the winner has been determined.
+Intuition behind Features 7 & 8: 
+These features determine the winner of the board. If we encountered a row that contained either three X’s or three O’s, then the winner has been determined.
 
 
 9. Feature 9: This feature counts the number of columns in the board that contain two X's and no O's
@@ -38,9 +39,9 @@ These features are important because they highlight winning opportunities for a 
 Intuition behind Features 11 & 12:
 These features determine the winner of the board. If we encountered a column that contained either three X’s or three O’s, then the winner has been determined.
 
+
+
 Intuition behind fixed evaluation function:
-
-
 For our opponent, we set its symbol as ‘O’. Hence, we set the weights of the evaluation function as:
 
 w0 = 0.3
@@ -51,12 +52,11 @@ w4 = 10, since w4 indicates if O occupies the center position, this weight is po
 w5 = -10, since w5 dictates the number of rows with two X’s, this weight is negative since it potentially may hurt the opponent’s chances of winning
 w6 = 10, since w6 dictates the number of rows with two O’s, this weight is positive since it could potentially increase the opponent’s chances of winning
 w7 = -10, since w7 dictates the number of rows with three X’s, this weight is negative since it would hurt the opponent’s chances of winning
-w8 = 10, since w7 dictates the number of rows with three O’s, this weight is positive since it would increase the opponent’s chances of winning
+w8 = 10, since w8 dictates the number of rows with three O’s, this weight is positive since it would increase the opponent’s chances of winning
 w9 = -10, since w9 dictates the number of columns with two X’s, this weight is negative since it potentially may hurt the opponent’s chances of winning
 w10 = 10, since w10 dictates the number of columns with two O’s, this weight is positive since it could potentially increase the opponent’s chances of winning
-
-w11 = -10, since w11 dictates the number of rows with three X’s, this weight is negative since it would hurt the opponent’s chances of winning
-w12 = 10, since w11 dictates the number of rows with three O’s, this weight is positive since it would increase the opponent’s chances of winning
+w11 = -10, since w11 dictates the number of columns with three X’s, this weight is negative since it would hurt the opponent’s chances of winning
+w12 = 10, since w12 dictates the number of columns with three O’s, this weight is positive since it would increase the opponent’s chances of winning
 
 
 
