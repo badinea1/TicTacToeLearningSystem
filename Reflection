@@ -1,30 +1,37 @@
 A writeup addressing each of the following (if there is nothing for a category then make an explicit remark ("Nothing" or "None"):
 
-(1) anything positive you enjoyed or learned from this assignment
-	We enjoyed implementing what was learned in class and we developed a deeper understanding of the LMS learning algorithm as well as how to teach 
-	a machine to learn a game like tic tac toe
-(2) anything negative you didn't like about this assignment
-	- 
-(3) any parts of this assignment you found easy
-	- none
-(4) any parts of this assignment you found challenging or couldn't get working correctly
-	- At some point our ratio of games won and games lost was very close (excluding the games that were tied),for example,
-	we had X winning 3017 games and O winning 2104, we realized thatthe issue was with the LMS code as we forgot to implement a w0 weight, 
-	once that was added the ratio changed signifcantly with X won around 5017 games while O won 2606 games. Therefore, we found that this signifcantly 
-	helped our learning algorithm. 
+(1) Anything positive you enjoyed or learned from this assignment
+	We enjoyed implementing what was learned in class. We developed a deeper understanding of the LMS learning algorithm, as well as how to teach 
+	a machine to learn a game like tic tac toe.
+(2) Anything negative you didn't like about this assignment
+	- Nothing
+(3) Any parts of this assignment you found easy
+	- None
+(4) Any parts of this assignment you found challenging or couldn't get working correctly
+	- Adjusting the weights was at first challenging, though we were able to overcome this. At some point, our ratio of games won and games lost was 
+	very close (excluding the games that were tied). For example, we had X winning 3017 games and O winning 2104, and we realized that the issue was 
+	with the LMS code, as we forgot to implement a w0 weight. Once that was added, the ratio changed significantly as X won around 5017 games while O 
+	won 2606 games. Therefore, we found that this signifcantly helped our learning algorithm.
 	
-(5) how your team functioned
-	- 
-	what each team member contributed
-	- Amulya: 
+(5) How the team functioned:
+	- The team functioned by communicating through GroupMe and meeting several times a week. Regular Zoom meetings were held to brainstorm and design
+	the code and to review the progress. We split the work among us evenly.
+
+	What each team member contributed:
+	- Amulya:
 	- Adeena:
-	- Suada: 
+	- Suada: Created functions to generate the board, debugged the code and analyzed for errors, helped with plotting.
 	- Lana: Analyzed the code for errors, debugged the code and added documentation. Additionally worked on the plots and the write-up. 
 	how the team communicated with each other
+
+	How the team communicated with each other:
 	- GroupMe was used for immediate communication and to decide when Zoom meetings would be held.
-	- Zoom was used for longer meetings and to discuss the current state of the project and 
-	how team software development & design was accomplished
-	- During the Zo
+	- Zoom was used for longer meetings and to discuss the current state of the project and how to progress.
+	
+	How team software development & design was accomplished
+	- During the first Zoom meeting, we were all prepared to brainstorm and discuss which weights we would want to use. In addition, we assigned parts of
+	the design we wanted each group member to work on. As for software development, a group member would finish their task and commit it to GitHub, and then
+	the team would come together to evaluate the code.
 	 
-(6) any other remarks you want to make
-	- 
+(6) Any other remarks you want to make
+	- None
