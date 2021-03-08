@@ -18,8 +18,7 @@ The repository includes four main deliverables:
        5. Details on how our team functioned
      
 ## Build Instructions for the HPC
-On OnDemand, go to your File Home Directory and upload "tictactoe.py". Then, in the HPC terminal, enter: 
-     python tictactoe.py
+1. Method 1: Cloning repository
 
 ```
 module add python
@@ -27,3 +26,13 @@ git clone https://github.com/badinea1/TicTacToeLearningSystem.git && cd TicTacTo
 python tictactoe.py
 
 ```
+
+
+2. Method 2: From local directory
+On OnDemand, go to your File Home Directory and upload "tictactoe.py". Then, in the HPC terminal, enter: 
+   ``` 
+   python tictactoe.py
+```
+
+
+
