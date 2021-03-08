@@ -20,7 +20,8 @@ A writeup addressing each of the following (if there is nothing for a category t
 	What each team member contributed:
 	- Amulya: Implemented the LMS Weight Update Rule and the function to extract training data from games played, designed gameplay 
 		between learner and opponent, debugged the code, worked on the write-up.
-	- Adeena:
+	- Adeena: Made functions to get successive board states, retrieve features from board state, and created Player functions (excluding LMS and chooseMove),
+	debugged code, and worked on write-up.
 	- Suada: Created functions to generate the board, debugged the code and analyzed for errors, helped with plotting and the write-up.
 	- Lana: Analyzed the code for errors, debugged the code and added documentation. Additionally worked on the plots and the write-up. 
 
