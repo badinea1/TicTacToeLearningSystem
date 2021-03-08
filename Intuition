@@ -1,17 +1,65 @@
-A document explaining the board features you chose and the intuition behind choosing them. Also provide and 
-explain the intuition for the fixed evaluation function you created for the second copy of your program ("the opponent" program).
-
+##Intuition##
+To choose these board features, we played a couple of games against a computer.
 
 **Intuition behind Board Features**
 1. Feature 1: This feature counts the number of X's in the corner positions of the board
-2. Feature 2: Number of O's in corner pieces
-3. Feature 3: X in center; 1 if X, 0 if empty, -1 of O
-4. Feature 4: O in center; 1 if O, 0 if empty, -1 if X
-5. Feature 5: number of rows that have two X's
-6. Feature 6: number of rows that have two O's
-7. Feature 7: number of rows that have three X's
-8. Feature 8: number of rows that have three O's
-9. Feature 9: number of columns that have two X's
-10. Feature 10: number of columns that have two O's
-11. Feature 11: number of columns that have three X's
-12. Feature 12: number of columns that have three O's
+2. Feature 2: This feature counts the number of O's in the corner positions of the board
+
+Intuition behind Features 1 & 2:
+When choosing a position on the board, picking the corners of the board may be an optimal decision. For example, If we were to pick a corner position on an empty board, we could now try to win in three different ways. This is not the case for other non-corner positions (excluding the center).
+
+3. Feature 3: This feature tells us if X is in the center position; The feature's value is 1 if X is in the center, 0 if the center is empty, and -1 if O is in the center 
+4. Feature 4: This feature tells us if O is in the center position; The feature's value is 1 if O is in the center, 0 if the center is empty, and -1 if X is in the center 
+
+Intuition behind Features 3 & 4:
+Once we played a couple of games together, we noticed that the center position provided the most number of opportunities to win for a player. If either X or O was placed in the center, then they have 4 ways to win. This is not the case for other positions (the only position that comes close is the corner position).
+
+5. Feature 5: This feature counts the number of rows in the board that contain two X's and no O's
+6. Feature 6: This feature counts the number of rows in the board that contain two O's and no X's
+
+Intuition behind Features 5 & 6:
+These features are important because they highlight winning opportunities for a player. For example, if there are two X’s in one row and no O’s, then the player knows that there is an empty space where they have a chance of winning.
+
+7. Feature 7: This feature counts the number of rows in the board that contain three X's 
+8. Feature 8: This feature counts the number of rows in the board that contain three O's 
+
+Intuition behind Features 7 & 8: These features determine the winner of the board. If we encountered a row that contained either three X’s or three O’s, then the winner has been determined.
+
+
+9. Feature 9: This feature counts the number of columns in the board that contain two X's and no O's
+10. Feature 10: This feature counts the number of columns in the board that contain two O's and no X's
+
+Intuition behind Features 9 & 10:
+These features are important because they highlight winning opportunities for a player. For example, if there are two X’s in one column and no O’s, then the player knows that there is an empty space where they have a chance of winning.
+
+11. Feature 11: This feature counts the number of columns in the board that contain three X's
+12. Feature 12: This feature counts the number of columns in the board that contain three O's
+
+Intuition behind Features 11 & 12:
+These features determine the winner of the board. If we encountered a column that contained either three X’s or three O’s, then the winner has been determined.
+
+Intuition behind fixed evaluation function:
+
+
+For our opponent, we set its symbol as ‘O’. Hence, we set the weights of the evaluation function as:
+
+w0 = 0.3
+w1 = -10, since w1 dictates the number of corner positions with X’s, this weight is negative since it potentially may hurt the opponent’s chances of winning
+w2 = 10, since w2 dictates the number of corners positions with O’s, this weight is positive since it could potentially increase the opponent’s chances of winning
+w3 = -10, since w3 indicates if X occupies the center position, this weight is negative since it potentially may hurt the opponent’s chances of winning
+w4 = 10, since w4 indicates if O occupies the center position, this weight is positive since it could potentially increase the opponent’s chances of winning
+w5 = -10, since w5 dictates the number of rows with two X’s, this weight is negative since it potentially may hurt the opponent’s chances of winning
+w6 = 10, since w6 dictates the number of rows with two O’s, this weight is positive since it could potentially increase the opponent’s chances of winning
+w7 = -10, since w7 dictates the number of rows with three X’s, this weight is negative since it would hurt the opponent’s chances of winning
+w8 = 10, since w7 dictates the number of rows with three O’s, this weight is positive since it would increase the opponent’s chances of winning
+w9 = -10, since w9 dictates the number of columns with two X’s, this weight is negative since it potentially may hurt the opponent’s chances of winning
+w10 = 10, since w10 dictates the number of columns with two O’s, this weight is positive since it could potentially increase the opponent’s chances of winning
+
+w11 = -10, since w11 dictates the number of rows with three X’s, this weight is negative since it would hurt the opponent’s chances of winning
+w12 = 10, since w11 dictates the number of rows with three O’s, this weight is positive since it would increase the opponent’s chances of winning
+
+
+
+
+
+
