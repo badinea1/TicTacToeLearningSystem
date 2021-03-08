@@ -3,7 +3,7 @@ explain the intuition for the fixed evaluation function you created for the seco
 
 
 **Intuition behind Board Features**
-1. Feature 1: This feature counts the number of X's in the corner positions corner pieces
+1. Feature 1: This feature counts the number of X's in the corner positions of the board
 2. Feature 2: Number of O's in corner pieces
 3. Feature 3: X in center; 1 if X, 0 if empty, -1 of O
 4. Feature 4: O in center; 1 if O, 0 if empty, -1 if X
