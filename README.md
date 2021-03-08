@@ -18,6 +18,8 @@ The repository includes four main deliverables:
        5. Details on how our team functioned
      
 ## Build Instructions for the HPC
+On OnDemand, go to your File Home Directory and upload "tictactoe.py". Then, in the HPC terminal, enter: 
+     python tictactoe.py
 
 ```
 module add python
