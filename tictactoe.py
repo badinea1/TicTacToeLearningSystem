@@ -1,3 +1,7 @@
+# Authors: Lana Abdelmohsen, Adeena Ahmed, Amulya Badineni, Suada Demirovic
+# Filename: tictactoe.py
+# Description: The program creates a tic tac toe learning system that improves with experience.
+
 import copy
 
 class Board: 
