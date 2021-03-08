@@ -10,9 +10,8 @@ A writeup addressing each of the following (if there is nothing for a category t
 (4) Any parts of this assignment you found challenging or couldn't get working correctly
 	- Adjusting the weights was at first challenging, though we were able to overcome this. At some point, our ratio of games won and games lost was 
 	very close (excluding the games that were tied). For example, at some point we had X winning 3017 games and O winning 2104, and we realized 
-	that the issue was with the LMS code, as we forgot to implement a w0 weight.
-	Once that was added and we changed the game so that there was no random element, the ratio changed significantly as X won around 9688 games while O
-	won 302 games. Therefore, we found that this signifcantly helped our learning algorithm.
+	that the issue was with the LMS code, as we forgot to implement a w0 weight.Once that was added, the ratio changed significantly 
+	as X won around 9688 games while O won 302 games.Therefore, we found that this signifcantly helped our learning algorithm.
 	
 (5) How the team functioned:
 	- The team functioned by communicating through GroupMe and meeting several times a week. Regular Zoom meetings were held to brainstorm and design
