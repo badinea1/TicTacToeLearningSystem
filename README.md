@@ -35,6 +35,7 @@ python tictactoe.py
 On OnDemand, go to your File Home Directory and upload "tictactoe.py". Then, in the HPC terminal, enter: 
 
 ``` 
+   module add python
    python tictactoe.py
 ```
 
